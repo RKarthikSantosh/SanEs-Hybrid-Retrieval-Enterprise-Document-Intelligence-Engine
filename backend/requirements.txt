@@ -1,0 +1,54 @@
+# ── Web Framework ─────────────────────────────────────────────
+fastapi
+uvicorn[standard]
+python-multipart
+
+# ── LangChain ─────────────────────────────────────────────────
+langchain
+langchain-community
+langchain-openai
+langchain-cohere
+langchain-chroma
+
+# ── Vector Database ───────────────────────────────────────────
+chromadb
+
+# ── Keyword Search ────────────────────────────────────────────
+rank-bm25
+
+# ── Reranker ──────────────────────────────────────────────────
+cohere
+
+# ── Embeddings (OpenAI — avoids torch/long-path issue) ────────
+openai
+tiktoken
+
+# ── Document Loaders ──────────────────────────────────────────
+pymupdf
+python-docx
+markdown
+
+# ── Evaluation ────────────────────────────────────────────────
+ragas
+datasets
+
+# ── Config & Env ──────────────────────────────────────────────
+python-dotenv
+pydantic
+pydantic-settings
+
+# ── Logging ───────────────────────────────────────────────────
+loguru
+
+# ── Utilities ─────────────────────────────────────────────────
+httpx
+tenacity
+numpy
+pandas
+tqdm
+scikit-learn
+
+# ── Testing ───────────────────────────────────────────────────
+pytest
+pytest-asyncio
+pytest-cov
