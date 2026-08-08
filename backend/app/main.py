@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.keyword import router as keyword_router
 from app.api.retrieve import router as retrieve_router
 from app.api.upload import router as upload_router
 
@@ -18,6 +19,7 @@ app.add_middleware(
 
 app.include_router(upload_router)
 app.include_router(retrieve_router)
+app.include_router(keyword_router)
 
 @app.get("/")
 def root():
