@@ -22,6 +22,7 @@ cohere
 
 # ── Embeddings (OpenAI — avoids torch/long-path issue) ────────
 openai
+sentence-transformers
 tiktoken
 
 # ── Document Loaders ──────────────────────────────────────────

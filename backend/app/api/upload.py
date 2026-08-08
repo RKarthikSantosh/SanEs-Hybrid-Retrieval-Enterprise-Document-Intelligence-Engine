@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from app.embeddings.text_embeddings import embed_text
 from app.loaders.pdf_loader import extract_pdf_pages
 
 router = APIRouter()
@@ -33,6 +34,7 @@ async def upload_pdf(file: UploadFile = File(...)):
                     "text": chunk_text,
                     "page": page_number,
                     "filename": file.filename,
+                    "embedding": embed_text(chunk_text),
                 }
             )
             chunk_id += 1
