@@ -1,8 +1,9 @@
 from pathlib import Path
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from app.loaders.pdf_loader import extract_pdf_text
+from app.loaders.pdf_loader import extract_pdf_pages
 
 router = APIRouter()
 
@@ -19,10 +20,26 @@ async def upload_pdf(file: UploadFile = File(...)):
     contents = await file.read()
     file_path.write_bytes(contents)
 
-    text, page_count = extract_pdf_text(file_path)
+    pages, page_count = extract_pdf_pages(file_path)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+
+    chunks = []
+    chunk_id = 1
+    for page_number, page_text in enumerate(pages, start=1):
+        for chunk_text in splitter.split_text(page_text):
+            chunks.append(
+                {
+                    "chunk_id": chunk_id,
+                    "text": chunk_text,
+                    "page": page_number,
+                    "filename": file.filename,
+                }
+            )
+            chunk_id += 1
 
     return {
         "filename": file.filename,
         "pages": page_count,
-        "text_length": len(text),
+        "text_length": sum(len(page_text) for page_text in pages),
+        "chunks": chunks,
     }
