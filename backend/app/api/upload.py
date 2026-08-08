@@ -5,6 +5,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.embeddings.text_embeddings import embed_text
 from app.loaders.pdf_loader import extract_pdf_pages
+from app.retrieval.chroma_store import store_chunks
 
 router = APIRouter()
 
@@ -38,6 +39,8 @@ async def upload_pdf(file: UploadFile = File(...)):
                 }
             )
             chunk_id += 1
+
+    store_chunks(chunks)
 
     return {
         "filename": file.filename,
