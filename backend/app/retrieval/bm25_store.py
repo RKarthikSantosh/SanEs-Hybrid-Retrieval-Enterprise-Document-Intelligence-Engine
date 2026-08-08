@@ -9,10 +9,11 @@ def _tokenize(text: str) -> list[str]:
 
 def query_keywords(question: str, n_results: int = 5) -> list[dict]:
     collection = get_collection()
-    results = collection.get(include=["documents", "metadatas"])
+    results = collection.get(include=["documents", "metadatas", "ids"])
 
     documents = results.get("documents", [])
     metadatas = results.get("metadatas", [])
+    ids = results.get("ids", [])
 
     if not documents:
         return []
@@ -25,6 +26,7 @@ def query_keywords(question: str, n_results: int = 5) -> list[dict]:
 
     return [
         {
+            "id": ids[index],
             "text": documents[index],
             "metadata": metadatas[index],
             "score": float(scores[index]),

@@ -40,5 +40,5 @@ def query_chunks(query: str, n_results: int = 3) -> dict:
     return collection.query(
         query_embeddings=[embed_text(query)],
         n_results=n_results,
-        include=["documents", "metadatas", "distances"],
+        include=["documents", "metadatas", "distances", "ids"],
     )
