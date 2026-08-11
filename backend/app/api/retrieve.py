@@ -3,6 +3,7 @@ from fastapi import APIRouter
 
 from app.retrieval.bm25_store import query_keywords
 from app.retrieval.chroma_store import query_chunks
+from app.reranker import rerank_candidates
 
 router = APIRouter()
 
@@ -54,4 +55,5 @@ def query_documents(request: QueryRequest):
         for vector_id, document, metadata in zip(vector_ids, vector_documents, vector_metadatas)
     ]
 
-    return _rank_fusion(vectors, keyword_results, limit=5)
+    merged_candidates = _rank_fusion(vectors, keyword_results, limit=20)
+    return rerank_candidates(request.question, merged_candidates, top_n=5)

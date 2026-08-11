@@ -10,6 +10,7 @@ langchain-text-splitters
 langchain-openai
 langchain-cohere
 langchain-chroma
+langchain-groq
 
 # ── Vector Database ───────────────────────────────────────────
 chromadb
@@ -38,6 +39,7 @@ datasets
 python-dotenv
 pydantic
 pydantic-settings
+huggingface-hub==0.24.7
 
 # ── Logging ───────────────────────────────────────────────────
 loguru
